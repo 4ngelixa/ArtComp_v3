@@ -1,0 +1,35 @@
+﻿@model Web_Asg.Models.AreaInterestViewModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete Area Of Interests</h1>
+<form asp-action="Delete">
+    <div>
+        <fieldset class="FormContent">
+            <div class="form-group row">
+                <div class="form-group">
+                    <input type="hidden" asp-for="AreaInterestID" class="form-control-plaintext" readonly />
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" readonly />
+                    <label asp-for="CompNo" class="control-label"></label>
+                    <input asp-for="CompNo" class="form-control" readonly />
+                </div>
+            </div>
+        </fieldset>
+        @{ 
+            if (Model.CompNo > 0 )
+            {
+                <h4 class="text-danger">Unable to delete there are competitions under this area of interest</h4>
+            }
+        }
+        <input type="submit" value="Delete" class="btn btn-danger" 
+               @{ if (Model.CompNo > 0)
+                   {
+                        @:disabled="disabled"
+               } }/> |
+        <a class="btn btn-primary" asp-action="Index">Back to List</a>
+
+    </div>
+</form>

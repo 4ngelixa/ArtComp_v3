@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ArtComp</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        @{
+            if (Context.Session.GetString("Role") == "Competitor")
+            {
+                @await Html.PartialAsync("_MemberNavBarcshtml.cshtml")
+            }
+            else if (Context.Session.GetString("Role") == "Admin")
+            {
+                @await Html.PartialAsync("_AdminNavBar.cshtml")
+            }
+            else if (Context.Session.GetString("Role") == "Judge")
+            {
+                @await Html.PartialAsync("_JudgeNavBar.cshtml")
+            }
+            else if (Context.Session.GetString("Role") == "Guest" || Context.Session.GetString("Role") == null)
+            {
+                @await Html.PartialAsync("_GuestNavBar.cshtml")
+            }
+        }
+
+    </header>
+    <div class="row">
+        <div class="col-sm-12">
+            <p style="padding:2px 15px;">
+                @{
+                    string name = "";
+                    string userRole = "Unknown";
+                    if (Context.Session.GetString("LoginID") != null)
+                    {
+                        name = Context.Session.GetString("Name");
+                    }
+                    /*
+                    if (Context.Session.GetString("Role") != null)
+                    {
+                        userRole = Context.Session.GetString("Role");
+                    }
+                    if (Context.Session.GetString("LoggedInTime") == null)
+                    {
+                        Context.Session.SetString("LoggedInTime", Convert.ToString(DateTime.Now));
+                    }*/
+                }
+                &nbsp;
+                <!--(Role: @userRole).&nbsp;You have logged in since @Context.Session.GetString("LoggedInTime");&nbsp; -->
+            </p>
+        </div>
+    </div>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

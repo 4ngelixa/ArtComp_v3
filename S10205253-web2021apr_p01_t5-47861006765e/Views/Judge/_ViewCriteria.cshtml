@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Web_Asg.Models.Criteria>
+
+@if (Model.ToList().Count > 0)
+{
+    <div class="table-responsive">
+        <table id="viewCriteria" class="table table-striped table-bordered table-hover">
+            <thead style="color: #949494">
+                <tr>
+                    <th>Criteria</th>
+                    <th>Weightage</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.CriteriaName.ToString()</td>
+                        <td>@item.Weightage</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="table-responsive">
+        <table id="viewCompetition" class="table table-striped table-bordered table-hover">
+            <thead style="color: #949494">
+                <tr>
+                    <th><h5>No criterias found!</h5></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+}
+
+@if (ViewData["ShowButton"] != null)
+{
+    @if (ViewData["ShowButton"].ToString() != "100")
+    {
+        <a asp-action="CreateCriteria" asp-controller="Judge" asp-route-id="@ViewData["selectedCompetitionID"]">Create Criteria</a>
+    }
+}

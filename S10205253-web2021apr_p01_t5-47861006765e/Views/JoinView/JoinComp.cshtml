@@ -1,0 +1,89 @@
+﻿@model Web_Asg.Models.CompetitionSubmission
+@{
+    ViewData["Title"] = "Join Competitiion";
+    var selectedComp = (Competition)ViewData["SelectedComp"];
+    var Critierias = (List<Criteria>)ViewData["CriteriaList"];
+    int CompetitorID = (int)ViewData["userID"];
+}
+<body>
+    <div class="card p-3 mb-5 bg-white rounded" style="border:none; box-shadow: 0px 0px 10px 4px #f25939">
+        <h4 class="PageTitle" style="text-align:center">Join Competition -  @selectedComp.CompetitionName</h4>
+        <hr />
+        <section style="border-color:aqua;border-width=15px">
+            <form asp-action="JoinComp" method="post">
+                <fieldset class="FormContent">
+                    <legend>@selectedComp.CompetitionName</legend>
+
+                    <div class="form-group row">
+                        <!-- Name/ID -->
+                        <label for="CompName"
+                               class="col-sm-3 col-form-label">Competition Name: </label>
+                        <div class="col-sm-9 col-md-5">
+                            <input readonly for="CompName" class="form-control" value="@selectedComp.CompetitionName" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label asp-for="CompetitorID" hidden
+                               class="col-sm-3 col-form-label">Competition ID: </label>
+                        <div class="col-sm-9 col-md-5" hidden>
+                            <input readonly asp-for="CompetitorID" class="form-control" value="@CompetitorID" />
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group row">
+                        <label asp-for="CompetitionID"
+                               class="col-sm-3 col-form-label">Competition ID: </label>
+                        <div class="col-sm-9 col-md-5">
+                            <input readonly asp-for="CompetitionID" class="form-control" value="@selectedComp.CompetitionID" />
+                        </div>
+                    </div>
+                    <div class="form-group row pl-5">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Criteria(s)</th>
+                                    <th>Weightage</th>
+                                </tr>
+                            </thead>
+                            @foreach (var cr in Critierias)
+                            {
+                                <tr>
+                                    @if (cr.CompetitionID == selectedComp.CompetitionID)
+                                    {
+                                        <td>
+                                            @cr.CriteriaName
+                                        </td>
+                                        <td>@cr.Weightage%</td>
+                                    }
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                    <div class="form-group row">
+                        <h3 class="col-sm-3 col-form-label">Start Date: @selectedComp.StartDate.ToShortDateString()</h3><br>
+                        <span style="color:red;">Entry will be denied from @selectedComp.StartDate.Subtract(TimeSpan.FromDays(3)).ToShortDateString() - 3 days before Start of Competitition</span>
+                    </div>
+                    <div class="form-group row">
+                        <h3 class="col-sm-3 col-form-label">End Date: @selectedComp.EndDate.ToShortDateString()</h3><br>
+                    </div>
+                    <div class="form-group row">
+                        <h3 class="col-sm-3 col-form-label">Results Date: @selectedComp.ResultReleasedDate.ToShortDateString()</h3><br>
+                    </div>
+
+                    <!-- Name/ID -->
+                    <!-- Criterias + weightage -->
+                    <!-- Start Date + message to join 3 days before -->
+                    <!-- End Date -->
+                    <!-- Results Date -->
+                    <!-- Radio Box to send email to Competitor -->
+                    <label for="html">Send Details to Email?</label><br>
+                    <input type="radio" id="css" name="fav_language" value="CSS">
+                    <p><input type="submit" value="Confirm Enter Competition" /></p>
+                    <span style="color: red;">@ViewData["Error"]</span>
+                </fieldset>
+            </form>
+        </section>
+    </div>
+</body>
+
+    

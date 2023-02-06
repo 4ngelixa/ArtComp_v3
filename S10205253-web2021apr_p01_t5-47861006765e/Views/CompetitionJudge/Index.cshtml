@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Web_Asg.Models.Competition>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@if (Model.ToList().Count > 0)
+{
+    <div class="table-responsive">
+        <table id="viewStaff" class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Result Release Date</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var comp in Model)
+                {
+                <tr>
+                    <td>@comp.CompetitionName</td>
+                    <td>@comp.StartDate</td>
+                    <td>@comp.EndDate</td>
+                    <td>@comp.ResultReleasedDate</td>
+                    <td>
+                        <a class="btn btn-primary" asp-action="Assignjudges" asp-controller="CompetitionJudge"
+                           asp-route-id="@comp.CompetitionID">Assign Judges</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-controller="CompetitionJudge"
+                           asp-route-id="@comp.CompetitionID">Remove Judges</a> 
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <span style="color:red">No record found!</span>
+}

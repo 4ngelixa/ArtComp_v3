@@ -1,0 +1,42 @@
+﻿@model Web_Asg.Models.CompetitionSubmission
+@{
+    ViewData["Title"] = "Appeal Competition";
+    var compName = (string)ViewData["CompName"];
+
+}
+<h4 class="PageTitle">Appeal for @compName</h4>
+<p>
+    We are sorry if there were any misconceptions that our judges may have overlooked or underestimated.<br>
+    We take pride in our marking and competitor satisfaction so feel free to appeal!<br>
+    Note: You can only appeal <strong>once</strong>.
+</p>
+<div>
+    <form asp-action="Appeal" enctype="multipart/form-data">
+        <div hidden>
+            <label asp-for="CompetitionID"></label>
+            <input asp-for="CompetitionID" value="@Model.CompetitionID" readonly>
+        </div>
+        <div hidden>
+            <label asp-for="CompetitorID"></label>
+            <input asp-for="CompetitorID" value="@Model.CompetitorID" readonly>
+        </div>
+        <div class="form-group">
+            <label asp-for="Appeal">Enter Appeal Message</label>
+            <input asp-for="Appeal" type="text" class="form-control" id="appealMSG" placeholder="Enter Appeal Message Here">
+        </div>
+        @if (Model.Appeal != null)
+        {
+            <p><input type="submit" value="Submit" readonly/> </p>
+            <span style="color: red;">You Have Already Made An Appeal!</span>
+        }
+        else if (Model.Appeal == null)
+        {
+            <p><input type="submit" value="Submit" /> </p>
+        }
+    </form>
+    @if ((string)ViewData["Message"] != null)
+    {
+        <span style="color: red;">@ViewData["Message"]</span>
+    }
+    <a asp-action="Index" asp-controller="ViewScore" class="">Return to View Scores</a>
+</div>

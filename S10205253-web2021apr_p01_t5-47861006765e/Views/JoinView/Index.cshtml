@@ -1,0 +1,141 @@
+﻿@model IEnumerable<Web_Asg.Models.Competition>
+@{
+    ViewData["Title"] = "Join/View Competition";
+
+    var cscList = (List<CompsubCriteriaModel>)ViewData["cscList"];
+    var criterias = (List<Criteria>)ViewData["Criteria"];
+    var userCompID = ViewData["userID"];
+    var AlrJoinedCompID = (List<CompsubCriteriaModel>)ViewData["AlrJoinedCompID"];
+
+}
+
+@if (Model.ToList().Count > 0)
+{
+      <style>
+          .btn {
+              border: 2px solid white;
+              background-color: #f25939;
+              color: white;
+              padding: 12px 20px;
+              font-size: 16px;
+              cursor: pointer;
+              color: white;
+          }
+
+              .btn:hover {
+                  background: white;
+                  color: #f25939;
+              }
+    </style>
+
+    <h3 style="text-align:center">Joined Competitions</h3>
+
+    <br>
+    <!-- SECOND TRY AT SUBMIT COMP WORK-->
+    <!--
+    - USE KITCHEN SINK BOOTSTRAP CARD
+    1) Foreach loop to show all joined competitions
+    2) Each loop will create one card
+    3) card title card name
+    4) card desc - card criteria + weightage
+    5) Flush item list - End Date and Release Results dates
+    6) Button to Submit
+
+    1) foreach compsubcriteria
+    2) Generate Card
+    -->
+    <br>
+    <div class="card-deck">
+    @foreach (CompsubCriteriaModel ccm in AlrJoinedCompID)
+    {
+        <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;" >
+            <img class="card-img-top" src="~/images/Index/compPhoto.jpg" height="300" width="120"alt="Card image cap">
+            <div class="card-body">
+                <!--Display Competition Name-->
+                <h5 class="card-title">@ccm.CompetitionName</h5>
+                <p class="card-text"><u>Criteria</u> <br> @ccm.criterias</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">End Date: @ccm.EndDate.ToShortDateString()</li>
+                <li class="list-group-item">Results Date: @ccm.ResultReleasedDate.ToShortDateString()</li>
+            </ul>
+            <div class="card-body">
+                @if (ccm.FileSubmitted == null && DateTime.Now < ccm.EndDate)
+                {
+                    <span style="color:dimgrey">Attempts Allowed: 1</span>
+                    <br>
+                    <a asp-action="ViewSubmit" asp-controller="CompetitorSubmit"
+                       asp-route-id="@ccm.CompetitionID">Submit Work</a>
+                }
+                else if (ccm.FileSubmitted == null && DateTime.Now > ccm.EndDate)
+                {
+                    <span style="color:red">Deadline for submission is over</span>
+                    <br>
+                    <a asp-action="Index" asp-controller="ViewScore"
+                       asp-route-id=null>View Results</a>
+                }
+                else if (ccm.FileSubmitted != null)
+                {
+                    <span style="color:dimgray">Already submitted</span>
+                    <br>
+                    <a asp-action="Index" asp-controller="ViewScore"
+                       asp-route-id=null>View Results</a>
+                }
+            </div>
+        </div>
+    }
+    </div>
+
+    <h3 style="text-align:center">Available Competitions</h3>
+
+    <div id="availcomps" class="table-responsive">
+        <table id="viewStaff" class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Competition ID</th>
+                    <th>Name</th>
+                    <th>Criteria</th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th>Results</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var cID in ViewData["AvailCompID"] as List<int>)
+                {
+                    @foreach (var item in Model)
+                    {
+                        if (cID == item.CompetitionID && item.StartDate >= DateTime.Now)
+                        {
+                            <tr>
+                                <td>@item.CompetitionID.ToString()</td>
+                                <td>@item.CompetitionName</td>
+                                <td>
+                                    @foreach (Criteria cr in criterias)
+                                    {
+                                        if (cr.CompetitionID == cID)
+                                        {
+                                            @cr.CriteriaName.ToString()
+                                        }
+                                    }
+                                </td>
+                                <td>@item.StartDate.ToShortDateString()</td>
+                                <td>@item.EndDate.ToShortDateString()</td>
+                                <td>@item.ResultReleasedDate.ToShortDateString()</td>
+                                <td>
+                                    <a asp-action="JoinComp" asp-controller="JoinView"
+                                       asp-route-id="@item.CompetitionID" class="btn">Join Competition</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <span style="color:red">No record found!</span>
+}

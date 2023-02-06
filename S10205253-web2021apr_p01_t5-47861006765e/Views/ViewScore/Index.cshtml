@@ -1,0 +1,78 @@
+﻿@{
+    ViewData["Title"] = "View/Appeal Competition Scores";
+
+    var totalScores = (List<int>)ViewData["totalScores"];
+    var compNames = (List<string>)ViewData["CompNames"];
+    var comments = (List<string>)ViewData["Comments"];
+    var markedComps = (List<int>)ViewData["markedComps"];
+    var datesList = (List<List<DateTime>>)ViewData["DatesList"];
+
+    var BDScores = (List<int>)ViewData["BDScores"];
+    var BDCriterias = (List<string>)ViewData["BDCriterias"];
+    var BDWeightages = (List<int>)ViewData["BDWeightages"];
+    var BDCompName = (string)ViewData["BDCompName"];
+}
+
+<h4 style="text-align:center">View Scores</h4>
+
+@if (totalScores.Count > 0 && totalScores.Count == compNames.Count)
+{
+<div class="table-responsive">
+    <table id="viewStaff" class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Competition Name</th>
+                <th>Marks Obtained</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (totalScores.Count() != 0)
+            {
+
+            @for (int i = 0; i < totalScores.Count(); i++)
+            {
+            <tr>
+                <td>@compNames[i]</td>
+
+                <td>
+                    <a asp-action="" asp-controller="ViewScore"
+                       asp-route-id="@markedComps[i]" class="">View Marks Breakdown </a>
+                </td>
+            </tr>
+            }
+            }
+        </tbody>
+    </table>
+    @if (BDCriterias != null)
+    {
+        <h4 class="PageTitle">Score BreakDown for @((string)ViewData["BDCompName"])</h4>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Criteria Name</th>
+                    <th>Scores (out of 10)</th>
+                    <th>Weightage</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < BDScores.Count(); i++)
+                {
+                    <tr>
+                        <td>@BDCriterias[i]</td>
+                        <td>@BDScores[i]</td>
+                        <td>@BDWeightages[i]</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <a asp-action="Index" asp-controller="ViewScore" asp-route-id=null class="">Close BreakDown</a>
+    }
+    <br>
+</div>
+}
+else
+{ 
+    <div style="text-align:center">
+        <p>It seems like you have not joined any Competitons or you are waiting for the results!</p>
+    </div>
+}

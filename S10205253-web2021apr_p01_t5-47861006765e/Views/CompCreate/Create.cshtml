@@ -1,0 +1,55 @@
+﻿@model Web_Asg.Models.Competition
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Index</h1>
+
+<h4>Competition</h4>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Index">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="AreaInterestID"
+                       class="col-sm-3 col-form-label">AreaInterest</label>
+                <div class="col-sm-9 col-md-5">
+                    <select asp-for="AreaInterestID"
+                            asp-items="@ViewData["AreaInterestList"]
+                                as List<SelectListItem>"
+                            class="form-control-lg">
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="CompetitionName" class="control-label"></label>
+                <input asp-for="CompetitionName" class="form-control" required />
+                <span asp-validation-for="CompetitionName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartDate" class="control-label"></label>
+                <input asp-for="StartDate" class="form-control" required />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndDate" class="control-label"></label>
+                <input asp-for="EndDate" class="form-control" required />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResultReleasedDate" class="control-label"></label>
+                <input asp-for="ResultReleasedDate" class="form-control" required />
+                <span asp-validation-for="ResultReleasedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-action="Create" type="submit" value="Create" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a class="btn btn-primary" asp-action="Index">Back to List</a>
+</div>
+

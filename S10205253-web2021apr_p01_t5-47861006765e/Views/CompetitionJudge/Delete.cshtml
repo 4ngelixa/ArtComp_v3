@@ -1,0 +1,70 @@
+﻿@model Web_Asg.Models.CompetitionJudgeViewModel
+
+@{
+    ViewData["Title"] = "Delete";
+    AreaInterest AI = ViewData["AreaInterest"] as AreaInterest;
+    Competition comp = ViewData["Comp"] as Competition;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AssignJudges</title>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+</head>
+<body>
+    <h1>Assign Competition Judges</h1>
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Delete">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label for="AreaInterestID" class="control-label">AreaInterestID</label>
+                    <input id="AreaInterestID" value="@AI.AreaInterestID" class="form-control" readonly />
+                </div>
+                <div class="form-group">
+                    <label for="AreaInterestName" class="control-label">AreaInterest</label>
+                    <input class="form-control" id="AreaInterestName" value="@AI.Name" readonly />
+                </div>
+                <div class="form-group">
+                    <label for="CompetitionID" class="control-label">Competition ID</label>
+                    <input asp-for="CompetitionID" id="CompetitionID" value="@comp.CompetitionID" class="form-control" readonly />
+                </div>
+                <div class="form-group">
+                    <label for="CompetitionName" class="control-label">Competition</label>
+                    <input id="CompetitionName" value="@comp.CompetitionName" class="form-control" readonly />
+                </div>
+                <div class="form-group">
+                    <label for="AreaInterestName" class="control-label">Available Judges</label><br />
+                    @for (int i = 0; i < Model.Judges.Count; i++)
+                    {
+                        <input class="Checkbox" asp-for="Judges[i].Selected" type="checkbox" />
+                        <label asp-for="Judges[i].Selected">@Model.Judges[i].JudgeName</label>
+                        <input type="hidden" asp-for="Judges[i].JudgeID" />
+                        <input type="hidden" asp-for="Judges[i].JudgeName" />
+                    }
+                </div>
+                <input type="hidden" asp-for="JudgeID" />
+                <div class="form-group">
+                    <input id="Delete"  type="submit" value="Delete" class="btn btn-danger" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a class="btn btn-primary" asp-action="Index">Back to List</a>
+    </div>
+</body>
+</html>
+@*<script>
+    $(document).ready(function () {
+        $(".Checkbox").click(function () {
+            var checked = $("input:checked").length;
+            if (checked >= 2) {
+                $("#Assign").prop("disabled", false);
+            }
+        });
+    });
+</script>*@

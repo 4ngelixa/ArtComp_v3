@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Web_Asg.Models.Competition>
+
+@{
+    ViewData["Title"] = "AdminMain";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AssignJudges</title>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+</head>
+
+<style>
+    .btn {
+        border: 2px solid #f25939;
+        background-color: white;
+        color: white;
+        padding: 12px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        color: #f25939;
+    }
+
+        .btn:hover {
+            background: #f25939;
+            color: white;
+        }
+</style>
+
+<body>
+    <div class="container">
+        <div class="row ">
+            <div class="col d-flex justify-content-center pb-5">
+                <h1 class="text-start">Welcome back Admin <span class="wave">👋</span></h1>
+                <marquee direction="left"><h1>Have a good day!</h1></marquee>
+            </div>
+        </div>
+
+        <div class="row pb-4">
+            <div class="col d-flex justify-content-center">
+                <h4>What would you like to do?</h4>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="card-deck">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Categories</h4>
+                        <p class="card-text">Click the button below to view or add new Categories</p>
+                        <a href="~/AreaInterest/Index" class="btn">Go to categories</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Competitions</h4>
+                        <p class="card-text">Click the button below to view or add new Competitions</p>
+                        <a href="~/CompCreate/Index" class="btn">Go to competitions</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Judges</h4>
+                        <p class="card-text">Click the button below to view or assign a Judge for a Competition</p>
+                        <a href="~/CompetitionJudge/Index" class="btn">Go to competiion judges</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<html>
+<head>
+    <!-- Use Unicode character encoding - multi-language compatibity -->
+    <meta charset="utf-8">
+
+    <!-- Set the initial view zooming scale for mobile device -->
+    <meta name="viewport" content="width = device-width, initial-scale = 1" />
+
+    <title>ArtComp</title>
+
+    <!-- Reference to customized styling for this website -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/css/Site.css">
+    <style>
+        .btn {
+            border: 2px solid #f25939;
+            background-color: white;
+            color: white;
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            color: #f25939;
+        }
+
+            .btn:hover {
+                background: #f25939;
+                color: white;
+            }
+    </style>
+
+</head>
+
+<body>
+    <div class="d-flex align-content-center justify-content-center">
+        <div class="card my-5 shadow" style="width:500px">
+            <h2 class="card-title card-header text-center" style="background-color:#fdb0a1;">
+                Login
+            </h2>
+            <div class="card-body">
+                <form method="post" action="~/Home/StaffLogin">
+                    <fieldset class="loginFieldset">
+                        <div class="form-group">
+                            <label for="txtLoginID">Email:</label>
+                            <input type="email" name="txtLoginID" id="txtLoginID" required /><br />
+                        </div>
+                        <div class="form-group">
+                            <label for="txtPassword">Password:</label>
+                            <input type="password" name="txtPassword" id="txtPassword" style="width:100px" required />
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" id="btnLogin" class="btn" value="Login" />
+                        </div>
+                    </fieldset>
+                </form>
+                <span style="color:red;">@TempData["Message"]</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex align-content-center justify-content-center">
+        <div class="card my-5 shadow" style="width:500px">
+            <h2 class="card-title card-header text-center" style="background-color:#fdb0a1;">
+                Sign Up
+            </h2>
+            <div class="card-body">
+                <form method="post" action="~/Home/SignUp">
+                    <fieldset class="loginFieldset">
+                        <span style="color:dimgray;">
+                            Don't have an account? Sign up as a Competitor or Judge!<br>
+                            <label for="userType">Choose User Type:</label><br />
+                            <select name="userType" id="userType" asp-items="@ViewData["userTypesList"] as List<SelectListItem>"
+                                    class="form-control"></select><br />
+                            <input class="btn" type="submit" value="Sign Up" />
+                        </span>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

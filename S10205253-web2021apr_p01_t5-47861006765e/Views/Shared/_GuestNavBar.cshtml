@@ -1,0 +1,38 @@
+﻿
+<link rel="stylesheet" type="text/css" href="~/css/Site.css">
+ 
+<!-- A grey navbar that expands horizontally at medium device -->
+<style>
+    .nav-link {
+        color: #292929 !important;
+        font-weight: 600;
+    }
+</style>
+
+<nav class="navbar navbar-expand-md" style="background-color: #fdb0a1">
+    <!-- The brand(or icon) of the navbar -->
+    <a class="navbar-brand" href="~/Home/Index">
+        <img src="~/images/Index/LionCityLogo.jpg" alt="logo" style="width:40px; height:40px;">
+    </a>
+    <a class="navbar-brand" id="cool" href="~/Home/Index" style="padding-right: 30px; color: #292929">
+        <h4>ArtComp</h4>
+    </a>
+    <!-- Toggle/collapsible Button, also known as hamburger button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#guestNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- Links in the navbar, displayed as drop-down list when collapsed -->
+    <!-- Links that are aligned to the left, mr-auto: right margin auto-adjusted -->
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="~/JoinView/Index">Competitions</a>
+        </li>
+    </ul>
+    <!-- Links that are aligned to the right,ml-auto: left margin auto-adjusted -->
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <!-- A link for logging in user -->
+            <a class="nav-link" href="~/Home/Login">Log In</a>
+        </li>
+    </ul>
+</nav>

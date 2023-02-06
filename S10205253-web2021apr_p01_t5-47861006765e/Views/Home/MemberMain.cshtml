@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Competitor Main Page";
+}
+
+<!-- ======= Hero Section ======= -->
+<style>
+    .btn {
+        border: 2px solid #f25939;
+        background-color: white;
+        color: white;
+        padding: 12px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        color: #f25939;
+    }
+
+        .btn:hover {
+            background: #f25939;
+            color: white;
+        }
+</style>
+
+<section>
+    @if (Context.Session.GetString("Name") != null)
+    {
+        <div class="pt-5 align-content-center">
+            <div class="title h1 text-center"><marquee direction="left"><h1><span class="wave">👋 Hi @Context.Session.GetString("Name") 👋</span></h1></marquee></div>
+            <h3>Welcome to ArtComp, the premier art judging platform!</h3>
+            <h4>Your passion and talent for art are what make this platform and competition possible.</h4> <br />
+            <p>
+                At ArtComp, we believe that artists should have a platform to showcase their work and receive meaningful feedback from experienced judges. Our platform provides a seamless and accessible way for you to submit your art and receive scores and feedback from a panel of experienced judges.<br /><br />
+                We understand the importance of having a secure and trustworthy platform, and we are committed to protecting your privacy and the confidentiality of your submissions. Our aim is to create a fair and impartial competition that recognizes and rewards the best in the world of art.<br /><br />
+                Thank you for joining ArtComp, and we wish you the best of luck in the competition! We can't wait to see your amazing artwork and be a part of your artistic journey.
+            </p>
+        </div>
+        <br />
+        <a asp-action="Index" asp-controller="JoinView" class="btn">Get Started</a>
+    }
+    else
+    {
+        <div class="pt-5 align-content-center">
+            <div class="title h1 text-center"><marquee direction="left"><h1>Hi <span class="wave">👋</span></h1></marquee></div>
+            <h3>Welcome to ArtComp, the premier art judging platform!</h3>
+            <h4>Your passion and talent for art are what make this platform and competition possible.</h4> <br />
+            <p>
+                At ArtComp, we believe that artists should have a platform to showcase their work and receive meaningful feedback from experienced judges. Our platform provides a seamless and accessible way for you to submit your art and receive scores and feedback from a panel of experienced judges.<br /><br />
+                We understand the importance of having a secure and trustworthy platform, and we are committed to protecting your privacy and the confidentiality of your submissions. Our aim is to create a fair and impartial competition that recognizes and rewards the best in the world of art.<br /><br />
+                Thank you for joining ArtComp, and we wish you the best of luck in the competition! We can't wait to see your amazing artwork and be a part of your artistic journey.
+
+            </p>
+        </div>
+        <br />
+        <a asp-action="Index" asp-controller="JoinView" class="btn">Get Started</a>
+    }
+</section>

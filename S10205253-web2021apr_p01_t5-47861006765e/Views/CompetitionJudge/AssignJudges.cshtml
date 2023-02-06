@@ -1,0 +1,113 @@
+﻿@model Web_Asg.Models.CompetitionJudgeViewModel
+
+@{
+    ViewData["Title"] = "AssignJudges";
+    AreaInterest AI = ViewData["AreaInterest"] as AreaInterest;
+    Competition comp = ViewData["Comp"] as Competition;
+    List<CompetitionJudge> compJudge = ViewData["CurrentJudges"] as List<CompetitionJudge>;
+    List<string> CurrentJudgeName = ViewData["CurrentJudgeName"] as List<string>;
+    int JudgeCount = Convert.ToInt32(ViewData["JudgeCount"]);
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AssignJudges</title>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+</head>
+<body>
+    <h1>AssignJudges</h1>
+
+    <h4>CompetitionJudge</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="AssignJudges">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label for="AreaInterestID" class="control-label">AreaInterestID</label>
+                    <input id="AreaInterestID" value="@AI.AreaInterestID" class="form-control" readonly />
+                </div>
+                <div class="form-group">
+                    <label for="AreaInterestName" class="control-label">AreaInterest</label>
+                    <input class="form-control" id="AreaInterestName" value="@AI.Name" readonly />
+                </div>
+                <div class="form-group">
+                    <label for="CompetitionID" class="control-label">Competition ID</label>
+                    <input asp-for="CompetitionID" id="CompetitionID" value="@comp.CompetitionID" class="form-control" readonly />
+                </div>
+                <div class="form-group">
+                    <label for="CompetitionName" class="control-label">Competition</label>
+                    <input id="CompetitionName" value="@comp.CompetitionName" class="form-control" readonly />
+                </div>
+                <div class="form-group">
+                    <input hidden id="CompetitionEndDate" value="@comp.EndDate" class="form-control" readonly />
+                </div>
+                <div class="form-group">
+                    @for (int i = 0; i < CurrentJudgeName.Count; i++)
+                    {
+                        <p hidden class="CurrentJudgeName">@CurrentJudgeName[i]</p>
+                    }
+                </div>
+                <div class="form-group">
+                    <label for="AreaInterestName" class="control-label">Available Judges</label><br />
+                    @for (int i = 0; i < Model.Judges.Count; i++)
+                    {
+                        <input id="@Model.Judges[i].JudgeName" class="Checkbox" asp-for="Judges[i].Selected" type="checkbox" />
+                        <label for="checkbox" asp-for="Judges[i].Selected">@Model.Judges[i].JudgeName</label>
+                        <input type="hidden" asp-for="Judges[i].JudgeID" />
+                        <input type="hidden" asp-for="Judges[i].JudgeName" />
+                    }
+                </div>
+                <input type="hidden" asp-for="JudgeID" />
+                <div class="form-group">
+                    <input id="Assign" disabled type="submit" value="Assign" class="btn btn-success" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a class="btn btn-primary" asp-action="Index">Back to List</a>
+    </div>
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+        var endDateString = $("#CompetitionEndDate").val();
+        today = mm + '/' + dd + '/' + yyyy;
+        var todayDate = new Date(today);
+        var endDate = new Date(endDateString);
+        if (todayDate > endDate) {
+            alert("Competition is already over");
+        }
+        else {
+            var CurrentJudgeName = [];
+        $(".CurrentJudgeName").each(function () {
+            CurrentJudgeName.push($(this).text());
+        });
+        $(".Checkbox").click(function () {
+            var checked = $("input:checked").length;
+            var selectName = $(this).attr('id');
+            for (var i = 0; i < CurrentJudgeName.length; i++) {
+                if (CurrentJudgeName[i] == selectName) {
+                    alert("Judge is already assigned to tjis competition")
+                    $(this).prop('checked', false)
+                }
+            }
+            if (checked + @JudgeCount >= 2) {
+                $("#Assign").prop("disabled", false);
+            }
+            else {
+                $("#Assign").prop("disabled", true);
+            }
+        });
+        }
+
+    });
+</script>
+

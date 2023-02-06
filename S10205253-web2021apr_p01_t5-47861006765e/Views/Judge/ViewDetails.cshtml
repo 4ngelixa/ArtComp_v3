@@ -1,0 +1,92 @@
+﻿@model Web_Asg.Models.ViewScoreDetailsViewModel
+
+@{
+    ViewData["Title"] = "View Details";
+}
+
+<style>
+    .btn {
+        border: 2px solid white;
+        background-color: #f25939;
+        color: white;
+        padding: 12px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        color: white;
+    }
+
+        .btn:hover {
+            background: white;
+            color: #f25939;
+        }
+</style>
+
+
+<h3>Details for [@Model.Competitor.CompetitorID] @Model.Competitor.CompetitorName in @Model.CompetitionName</h3>
+<br />
+
+<!-- Display a list of competitors -->
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover">
+        <thead style="color: #949494">
+            <tr>
+                <th>Submission File</th>
+                <th>Total score</th>
+                <th>Judge score</th>
+                <th>Voting score</th>
+                <th>Ranking</th>
+            </tr>
+        </thead>
+            <tbody>
+                <tr>
+                    @if (Model.FileShown != null)
+                    {
+                        <td><a target="_blank" href="~/submissions/@Model.FileShown">@Model.FileShown</a></td>
+                    }
+                    else
+                    {
+                        <td><h5>No submission file</h5></td>
+                    }
+
+                    @if (Model.TotalScore != 0)
+                    {
+                        <td>@Model.TotalScore</td>
+                    }
+                    else
+                    {
+                        <td><h5>-</h5></td>
+                    }
+
+                    @if (Model.JudgeScore != 0)
+                    {
+                        <td>@Model.JudgeScore</td>
+                    }
+                    else
+                    {
+                        <td><h5>-</h5></td>
+                    }
+
+                    @if (Model.VoteScore != 0)
+                    {
+                        <td>@Model.VoteScore</td>
+                    }
+                    else
+                    {
+                        <td><h5>-</h5></td>
+                    }
+
+                    @if (Model.Ranking == 0)
+                    {
+                        <td><h5>-</h5></td>
+                    }
+                    else
+                    {
+                        <td>@Model.Ranking</td>
+                    }
+                </tr>
+                   
+            </tbody>        
+    </table>
+</div>
+
+<a asp-action="ViewCompetition">Back to Competition List</a>

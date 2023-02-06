@@ -1,0 +1,76 @@
+﻿@model Web_Asg.Models.Judge
+
+@{
+    ViewData["Title"] = "Judge Sign Up";
+}
+
+<h4 class="PageTitle" style="text-align:center">Creating Judge Profile</h4>
+<hr />
+<form asp-action="JudgeSU">
+    <fieldset class="FormContent">
+        <div class="form-group row">
+            <label asp-for="Salutation" class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9 col-md-5">
+                <div class="form-group form-check-inline">
+                    <label class="col-form-label">
+                        <input asp-for="Salutation" type="radio" value="Mr" checked class="form-check-input" />
+                        <span style="font-weight:normal; padding-right:20px">Mr</span>
+                    </label>
+                    <label class="col-form-label">
+                        <input asp-for="Salutation" type="radio" value="Mrs" class="form-check-input" />
+                        <span style="font-weight:normal; padding-right:20px">Mrs</span>
+                    </label>
+                    <label class="col-form-label">
+                        <input asp-for="Salutation" type="radio" value="Ms" class="form-check-input" />
+                        <span style="font-weight:normal; padding-right:20px">Ms</span>
+                    </label>
+                    <label class="col-form-label">
+                        <input asp-for="Salutation" type="radio" value="Mdm" class="form-check-input" />
+                        <span style="font-weight:normal; padding-right:20px">Mdm</span>
+                    </label>
+                    <label class="col-form-label">
+                        <input asp-for="Salutation" type="radio" value="Dr" class="form-check-input" />
+                        <span style="font-weight:normal; padding-right:20px">Dr</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="JudgeName" class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9 col-md-5">
+                <input asp-for="JudgeName" class="form-control"/>
+                <span asp-validation-for="JudgeName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Password" class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9 col-md-5">
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="EmailAddr" class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9 col-md-5">
+                <input asp-for="EmailAddr" class="form-control" />
+                <span asp-validation-for="EmailAddr" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="AreaInterestID" class="col-sm-3 col-form-label">Area of Interest</label>
+            <div class="col-sm-9 col-md-5">
+                <select asp-for="AreaInterestID" asp-items="@ViewData["selectInterestList"] as List<SelectListItem>" class="form-control">
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-9 offset-sm-3">
+                <input type="submit" value="Sign Up" class="btn btn-primary" />
+            </div>
+        </div>
+        <div>
+            <a href="~/Home/Login">Back</a>
+        </div>
+    </fieldset>
+</form>
+
